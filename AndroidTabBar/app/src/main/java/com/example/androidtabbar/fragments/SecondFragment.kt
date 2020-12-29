@@ -1,4 +1,4 @@
-package com.example.androidtabbar
+package com.example.androidtabbar.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.example.androidtabbar.R
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
