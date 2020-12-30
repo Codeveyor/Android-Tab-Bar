@@ -1,38 +1,111 @@
 package com.example.androidtabbar
 
+import android.graphics.PorterDuff
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentContainerView
+import com.example.androidtabbar.fragments.FirstFragment
+import com.example.androidtabbar.fragments.SecondFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var fragmentContainer: ConstraintLayout
+    private lateinit var bottomNavigationLinearLayout: LinearLayout
+
+    private lateinit var userProfileFragment: FirstFragment
+    private lateinit var interlocutorSearchFragment: SecondFragment
+
+    private lateinit var profileContainerView: FragmentContainerView
+    private lateinit var interlocutorContainerView: FragmentContainerView
+
+    private lateinit var fragmentsList: List<Fragment>
+    private lateinit var buttonsList: List<ImageButton>
+    private lateinit var containersList: List<FragmentContainerView>
+
+    // Activity Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        instantiateUIComponents()
+        initFragments()
+        setupFragmentsList()
+        setupInitialBottomNavigationBar()
+    }
+
+    // Setup
+    private fun instantiateUIComponents() {
+        fragmentContainer = findViewById(R.id.fragmentContainer)
+        bottomNavigationLinearLayout = findViewById(R.id.bottomNavigationLinearLayout)
+    }
+
+    private fun initFragments() {
+        val userProfileNavHost = R.id.userProfileNavHost
+        val topUsersNavHost = R.id.topUsersNavHost
+
+        userProfileFragment = FirstFragment(userProfileNavHost)
+        interlocutorSearchFragment = SecondFragment(topUsersNavHost)
+
+        supportFragmentManager.beginTransaction().apply {
+            add(userProfileNavHost, userProfileFragment)
+            add(topUsersNavHost, interlocutorSearchFragment)
+        }.commit()
+
+        profileContainerView = findViewById(userProfileNavHost)
+        interlocutorContainerView = findViewById(topUsersNavHost)
+        containersList = listOf(profileContainerView, interlocutorContainerView)
+
+        profileContainerView.visibility = View.VISIBLE
+        interlocutorContainerView.visibility = View.INVISIBLE
+    }
+
+    private fun setupFragmentsList() {
+        fragmentsList = listOf(userProfileFragment, interlocutorSearchFragment)
+    }
+
+    private fun setupInitialBottomNavigationBar() {
+        val userProfileButton = findViewById<ImageButton>(R.id.userProfileButton)
+        val topUsersButton = findViewById<ImageButton>(R.id.topUsersButton)
+        buttonsList = listOf(userProfileButton, topUsersButton)
+        buttonsList.forEach {
+            it.setOnClickListener { button -> setupControllersVisibilityFor(button as ImageButton) }
         }
+        setupBottomNavigationSelected(userProfileButton)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    // Navigation Utils
+    private fun setupControllersVisibilityFor(button: ImageButton) {
+        val buttonIndex = buttonsList.indexOf(button)
+        val selectedController = containersList[buttonIndex]
+        containersList.forEach {
+            if (it == selectedController)
+                it.visibility = View.VISIBLE
+            else
+                it.visibility = View.GONE
+        }
+
+        setupBottomNavigationSelected(button)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+    private fun setupBottomNavigationSelected(button: ImageButton) {
+        buttonsList.forEach {
+            if (it == button) {
+                it.setColorFilter(
+                    ContextCompat.getColor(baseContext, R.color.bottomNavigationTabHighlighted),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            } else {
+                it.setColorFilter(
+                    ContextCompat.getColor(baseContext, R.color.bottomNavigationTabNormal),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            }
         }
     }
 }
