@@ -21,11 +21,11 @@ class UserProfileFragment(navHostId: Int): RootFragment(navHostId) {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_user_profile, container, false)
         instantiateUIComponents(rootView)
 
         // TODO:
-//        avatarImageView.setImageDrawable(resources.getDrawable(R.drawable.avishai))
+        avatarImageView.setImageDrawable(resources.getDrawable(R.drawable.alex))
         return rootView
     }
 

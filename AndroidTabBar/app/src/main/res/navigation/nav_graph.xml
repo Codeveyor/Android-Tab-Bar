@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="com.example.androidtabbar.fragments.UserProfileFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_user_profile">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
