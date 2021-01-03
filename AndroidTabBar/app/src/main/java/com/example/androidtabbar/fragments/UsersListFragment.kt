@@ -10,7 +10,7 @@ import com.example.androidtabbar.R
 import com.example.androidtabbar.utils.RootFragment
 
 
-class SecondFragment(navHostId: Int) : RootFragment(navHostId) {
+class UsersListFragment(navHostId: Int) : RootFragment(navHostId) {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,

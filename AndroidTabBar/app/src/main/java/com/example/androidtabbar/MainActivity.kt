@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentContainerView
 import com.example.androidtabbar.fragments.UserProfileFragment
-import com.example.androidtabbar.fragments.SecondFragment
+import com.example.androidtabbar.fragments.UsersListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationLinearLayout: LinearLayout
 
     private lateinit var userProfileFragment: UserProfileFragment
-    private lateinit var interlocutorSearchFragment: SecondFragment
+    private lateinit var interlocutorSearchFragment: UsersListFragment
 
     private lateinit var profileContainerView: FragmentContainerView
     private lateinit var interlocutorContainerView: FragmentContainerView
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         val topUsersNavHost = R.id.topUsersNavHost
 
         userProfileFragment = UserProfileFragment(userProfileNavHost)
-        interlocutorSearchFragment = SecondFragment(topUsersNavHost)
+        interlocutorSearchFragment = UsersListFragment(topUsersNavHost)
 
         supportFragmentManager.beginTransaction().apply {
             add(userProfileNavHost, userProfileFragment)
