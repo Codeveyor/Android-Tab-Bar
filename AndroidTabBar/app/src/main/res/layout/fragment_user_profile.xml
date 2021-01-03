@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profileHeader"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="210dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -85,16 +85,27 @@
             android:gravity="center_horizontal|center_vertical"
             android:text="User Profile"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/bottomNavigationTabHighlighted"
             app:layout_constraintEnd_toStartOf="@+id/frameLayout"
             app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Friends:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendsRecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="539dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
