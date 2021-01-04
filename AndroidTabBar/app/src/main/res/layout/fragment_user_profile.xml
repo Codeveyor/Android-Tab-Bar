@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:gravity="center_horizontal|center_vertical"
-            android:text="User Profile"
+            android:text="USER PROFILE"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/bottomNavigationTabHighlighted"
             app:layout_constraintEnd_toStartOf="@+id/frameLayout"
