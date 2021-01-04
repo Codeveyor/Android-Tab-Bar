@@ -4,13 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.fragment.findNavController
+import android.widget.ImageButton
+import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtabbar.R
+import com.example.androidtabbar.dataSource.User
+import com.example.androidtabbar.dataSource.UsersAdapter
 import com.example.androidtabbar.utils.RootFragment
 
 
-class UsersListFragment(navHostId: Int) : RootFragment(navHostId) {
+class UsersListFragment(navHostId: Int) :
+    RootFragment(navHostId),
+    UsersAdapter.OnItemClickListener {
+
+    private lateinit var backButton: ImageButton
+    private lateinit var friendsRecyclerView: RecyclerView
+
+    private lateinit var adapter: UsersAdapter
+
+    var user: User? = null
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -20,11 +31,29 @@ class UsersListFragment(navHostId: Int) : RootFragment(navHostId) {
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    // UsersAdapter.OnItemClickListener
+    override fun onItemClick(model: User, view: View) {
+        // TODO:
+    }
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
+    // Utils
+    private fun instantiateUIComponents(rootView: View) {
+        backButton = rootView.findViewById(R.id.backButton)
+        friendsRecyclerView = rootView.findViewById(R.id.friendsRecyclerView)
+    }
+
+    private fun setupRecyclerView() {
+//        user?.let {
+//            val userFriends = DataSource.fetchRandomFriendsFor(it)
+//            adapter = UsersAdapter(
+//                requireContext(),
+//                userFriends,
+//                this
+//            )
+//            friendsRecyclerView.adapter = adapter
+//            friendsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+//
+//            adapter.notifyDataSetChanged()
+//        }
     }
 }

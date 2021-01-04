@@ -24,14 +24,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="User Profile"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/bottomNavigationTabHighlighted"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </FrameLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -77,18 +87,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
-
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="User Profile"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/bottomNavigationTabHighlighted"
-            app:layout_constraintEnd_toStartOf="@+id/frameLayout"
-            app:layout_constraintStart_toEndOf="@+id/backButton"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
