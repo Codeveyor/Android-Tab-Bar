@@ -2,8 +2,10 @@ package com.example.androidtabbar.dataSource
 
 import com.example.androidtabbar.R
 
+
 object DataSource {
-    val users = listOf<User>(
+
+    private val users = listOf(
         User("Esperanza", "Spalding", R.drawable.esperanza, "Contrabass"),
         User("Suzi", "Quatro", R.drawable.suzi, "Fender Precision 4 string"),
         User("Carol", "Kaye", R.drawable.carol, "Fender Precision 4 string"),
@@ -25,6 +27,26 @@ object DataSource {
         User("Richard", "Bona", R.drawable.richard, "Fodera 5 string"),
         User("Alex", "Golub", R.drawable.alex, "Chapman Stick")
     )
+
+    fun fetchRandomUser(): User {
+        val randomIndex = randomIndexFromUsersList(0, users.count() - 1)
+        return users[randomIndex]
+    }
+
+    fun fetchRandomFriendsFor(user: User? = null): List<User> {
+        val loopsCount = randomIndexFromUsersList(3, users.count() - 1)
+        val randomUsersList = mutableListOf<User>()
+        for (index in 0..loopsCount) {
+            val userFromList = users[randomIndexFromUsersList(0, users.count() - 1)]
+            if (userFromList.firstName != user?.firstName) {
+                randomUsersList.add(userFromList)
+            }
+        }
+        return randomUsersList.distinctBy { it.firstName }
+    }
+
+    // Util
+    private fun randomIndexFromUsersList(lowerIndex: Int, upperIndex: Int)= (lowerIndex until upperIndex).random()
 }
 
 data class User(
