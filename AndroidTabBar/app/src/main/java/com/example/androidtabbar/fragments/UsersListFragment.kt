@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtabbar.R
+import com.example.androidtabbar.dataSource.DataSource
 import com.example.androidtabbar.dataSource.User
 import com.example.androidtabbar.dataSource.UsersAdapter
 import com.example.androidtabbar.utils.RootFragment
@@ -17,7 +19,7 @@ class UsersListFragment(navHostId: Int) :
     UsersAdapter.OnItemClickListener {
 
     private lateinit var backButton: ImageButton
-    private lateinit var friendsRecyclerView: RecyclerView
+    private lateinit var usersRecyclerView: RecyclerView
 
     private lateinit var adapter: UsersAdapter
 
@@ -27,8 +29,10 @@ class UsersListFragment(navHostId: Int) :
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users_list, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_users_list, container, false)
+        instantiateUIComponents(rootView)
+        setupRecyclerView()
+        return rootView
     }
 
     // UsersAdapter.OnItemClickListener
@@ -39,21 +43,19 @@ class UsersListFragment(navHostId: Int) :
     // Utils
     private fun instantiateUIComponents(rootView: View) {
         backButton = rootView.findViewById(R.id.backButton)
-        friendsRecyclerView = rootView.findViewById(R.id.friendsRecyclerView)
+        usersRecyclerView = rootView.findViewById(R.id.usersRecyclerView)
     }
 
     private fun setupRecyclerView() {
-//        user?.let {
-//            val userFriends = DataSource.fetchRandomFriendsFor(it)
-//            adapter = UsersAdapter(
-//                requireContext(),
-//                userFriends,
-//                this
-//            )
-//            friendsRecyclerView.adapter = adapter
-//            friendsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//
-//            adapter.notifyDataSetChanged()
-//        }
+        val userFriends = DataSource.fetchRandomFriendsFor(user)
+        adapter = UsersAdapter(
+            requireContext(),
+            userFriends,
+            this
+        )
+        usersRecyclerView.adapter = adapter
+        usersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        adapter.notifyDataSetChanged()
     }
 }
