@@ -7,19 +7,28 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtabbar.R
 import com.example.androidtabbar.dataSource.DataSource
+import com.example.androidtabbar.dataSource.User
+import com.example.androidtabbar.dataSource.UsersAdapter
 import com.example.androidtabbar.utils.RootFragment
 
 
-class UserProfileFragment(navHostId: Int): RootFragment(navHostId) {
+class UserProfileFragment(navHostId: Int) :
+    RootFragment(navHostId),
+    UsersAdapter.OnItemClickListener {
 
     private lateinit var backButton: ImageButton
     private lateinit var avatarImageView: ImageView
     private lateinit var nameTextView: TextView
     private lateinit var instrumentTextView: TextView
     private lateinit var friendsRecyclerView: RecyclerView
+
+    private lateinit var adapter: UsersAdapter
+
+    var user: User? = null
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +37,13 @@ class UserProfileFragment(navHostId: Int): RootFragment(navHostId) {
         val rootView = inflater.inflate(R.layout.fragment_user_profile, container, false)
         instantiateUIComponents(rootView)
         setupUser()
-
+        setupRecyclerView()
         return rootView
+    }
+
+    // UsersAdapter.OnItemClickListener
+    override fun onItemClick(model: User, view: View) {
+        // TODO:
     }
 
     // Utils
@@ -42,9 +56,24 @@ class UserProfileFragment(navHostId: Int): RootFragment(navHostId) {
     }
 
     private fun setupUser() {
-        val user = DataSource.fetchRandomUser()
-        avatarImageView.setImageDrawable(resources.getDrawable(user.avatar))
-        nameTextView.text = "${user.firstName} ${user.lastName}"
-        instrumentTextView.text = user.instrument
+        user = DataSource.fetchRandomUser()
+        avatarImageView.setImageDrawable(user?.avatar?.let { resources.getDrawable(it) })
+        nameTextView.text = "${user?.firstName} ${user?.lastName}"
+        instrumentTextView.text = user?.instrument
+    }
+
+    private fun setupRecyclerView() {
+        user?.let {
+            val userFriends = DataSource.fetchRandomFriendsFor(it)
+            adapter = UsersAdapter(
+                requireContext(),
+                userFriends,
+                this
+            )
+            friendsRecyclerView.adapter = adapter
+            friendsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+            adapter.notifyDataSetChanged()
+        }
     }
 }
