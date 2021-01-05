@@ -38,7 +38,7 @@ class UserProfileFragment(navHostId: Int) :
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_user_profile, container, false)
         instantiateUIComponents(rootView)
-        setupUser()
+        setupUIWithUser()
         setupRecyclerView()
         setupBackButtonListener()
         return rootView
@@ -60,8 +60,13 @@ class UserProfileFragment(navHostId: Int) :
         friendsRecyclerView = rootView.findViewById(R.id.friendsRecyclerView)
     }
 
-    private fun setupUser() {
-        user = DataSource.fetchRandomUser()
+    private fun setupUIWithUser() {
+        if (user != null) {
+            backButton.visibility = View.VISIBLE
+        } else {
+            user = DataSource.fetchRandomUser()
+            backButton.visibility = View.INVISIBLE
+        }
         avatarImageView.setImageDrawable(user?.avatar?.let { resources.getDrawable(it) })
         nameTextView.text = "${user?.firstName} ${user?.lastName}"
         instrumentTextView.text = user?.instrument
