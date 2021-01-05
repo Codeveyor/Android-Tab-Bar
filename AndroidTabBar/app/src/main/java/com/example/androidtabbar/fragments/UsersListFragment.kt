@@ -33,6 +33,7 @@ class UsersListFragment(navHostId: Int) :
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_users_list, container, false)
         instantiateUIComponents(rootView)
+        setupBackButtonVisibility()
         setupRecyclerView()
         setupBackButtonListener()
         return rootView
@@ -49,6 +50,15 @@ class UsersListFragment(navHostId: Int) :
     private fun instantiateUIComponents(rootView: View) {
         backButton = rootView.findViewById(R.id.backButton)
         usersRecyclerView = rootView.findViewById(R.id.usersRecyclerView)
+    }
+
+    private fun setupBackButtonVisibility() {
+        if (user != null) {
+            backButton.visibility = View.VISIBLE
+        } else {
+            user = DataSource.fetchRandomUser()
+            backButton.visibility = View.INVISIBLE
+        }
     }
 
     private fun setupRecyclerView() {
