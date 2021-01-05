@@ -5,15 +5,6 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.example.androidtabbar.R
 
-// TODO:
-// Use for custom ViewModels to send and observe
-//fun <T: ViewModel> Fragment.setupViewModel(viewModel: T) : T {
-//    val activity = requireActivity()
-//    return ViewModelProvider(
-//        MainApplication.viewModelStore,
-//        ViewModelProvider.AndroidViewModelFactory.getInstance(activity.application)
-//    ).get(viewModel::class.java)
-//}
 
 // Use for bottom navigation forward transition
 fun <T: Fragment> Fragment.pushBottomNavigation(navigationId: Int, fragment: T) {
