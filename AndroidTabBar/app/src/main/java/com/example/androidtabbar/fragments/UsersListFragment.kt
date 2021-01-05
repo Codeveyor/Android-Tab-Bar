@@ -11,6 +11,7 @@ import com.example.androidtabbar.R
 import com.example.androidtabbar.dataSource.DataSource
 import com.example.androidtabbar.dataSource.User
 import com.example.androidtabbar.dataSource.UsersAdapter
+import com.example.androidtabbar.extensions.pushBottomNavigation
 import com.example.androidtabbar.utils.RootFragment
 
 
@@ -37,7 +38,9 @@ class UsersListFragment(navHostId: Int) :
 
     // UsersAdapter.OnItemClickListener
     override fun onItemClick(model: User, view: View) {
-        // TODO:
+        val userProfileFragment = UserProfileFragment(navHost)
+        userProfileFragment.user = model
+        pushBottomNavigation(navHost, userProfileFragment)
     }
 
     // Utils
