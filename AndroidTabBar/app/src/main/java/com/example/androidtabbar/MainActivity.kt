@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentContainerView
 import com.example.androidtabbar.fragments.UserProfileFragment
 import com.example.androidtabbar.fragments.UsersListFragment
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var fragmentContainer: ConstraintLayout
@@ -84,10 +85,7 @@ class MainActivity : AppCompatActivity() {
         val buttonIndex = buttonsList.indexOf(button)
         val selectedController = containersList[buttonIndex]
         containersList.forEach {
-            if (it == selectedController)
-                it.visibility = View.VISIBLE
-            else
-                it.visibility = View.GONE
+            it.visibility = if (it == selectedController) View.VISIBLE else View.GONE
         }
 
         setupBottomNavigationSelected(button)
