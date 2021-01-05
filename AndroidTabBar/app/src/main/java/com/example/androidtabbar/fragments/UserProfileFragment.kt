@@ -13,6 +13,7 @@ import com.example.androidtabbar.R
 import com.example.androidtabbar.dataSource.DataSource
 import com.example.androidtabbar.dataSource.User
 import com.example.androidtabbar.dataSource.UsersAdapter
+import com.example.androidtabbar.extensions.popBottomNavigation
 import com.example.androidtabbar.extensions.pushBottomNavigation
 import com.example.androidtabbar.utils.RootFragment
 
@@ -39,6 +40,7 @@ class UserProfileFragment(navHostId: Int) :
         instantiateUIComponents(rootView)
         setupUser()
         setupRecyclerView()
+        setupBackButtonListener()
         return rootView
     }
 
@@ -78,5 +80,9 @@ class UserProfileFragment(navHostId: Int) :
 
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun setupBackButtonListener() {
+        backButton.setOnClickListener { popBottomNavigation(this) }
     }
 }
